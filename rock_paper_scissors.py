@@ -10,7 +10,7 @@ colorama.init(autoreset=True)
 run_game = True
 possible_actions = [
     ["rock", "scissors", "paper"],
-    ["rock", "lizard", "spock", "scissors", "paper"],
+    ["rock", "lizard", "spock", "clippers", "paper"],
     ["rock", "fire", "clippers", "sponge", "paper", "air", "water"],
     ["rock", "fire", "clippers", "snake", "human", "tree", "wolf", "sponge", "paper", "air", "water", "dragon", "devil",
      "lightning", "gun"]
@@ -49,17 +49,17 @@ os.system("cls")
 print("""
 
 
-a   __            _     b   ___                       c __      _                        
-a  /__\\ ___   ___| | __ b  / _ \\__ _ _ __   ___ _ __  c/ _\\ ___(_)___ ___  ___  _ __ ___ 
-a / \\/// _ \\ / __| |/ / b / /_)/ _` | '_ \\ / _ \\ '__| c\\ \\ / __| / __/ __|/ _ \\| '__/ __|
-a/ _  \\ (_) | (__|   <  b/ ___/ (_| | |_) |  __/ |    c_\\ \\ (__| \\__ \\__ \\ (_) | |  \\__ \\
-a\\/ \\_/\\___/ \\___|_|\\_\\ b\\/    \\__,_| .__/ \\___|_|    c\\__/\\___|_|___/___/\\___/|_|  |___/
-a                       b           |_|               c                                  
+!   __            _     @   ___                       # __      _                        
+!  /__\\ ___   ___| | __ @  / _ \\__ _ _ __   ___ _ __  #/ _\\ ___(_)___ ___  ___  _ __ ___ 
+! / \\/// _ \\ / __| |/ / @ / /_)/ _` | '_ \\ / _ \\ '__| #\\ \\ / __| / __/ __|/ _ \\| '__/ __|
+!/ _  \\ (_) | (__|   <  @/ ___/ (_| | |_) |  __/ |    #_\\ \\ (__| \\__ \\__ \\ (_) | |  \\__ \\
+!\\/ \\_/\\___/ \\___|_|\\_\\ @\\/    \\__,_| .__/ \\___|_|    #\\__/\\___|_|___/___/\\___/|_|  |___/
+!                       @           |_|               #                    $- PythonBear
 
 
-""".replace("a", Fore.RED).replace("b", Fore.YELLOW).replace("c", Fore.BLUE) +
-      """When prompted for input if multiple options start with the same letter then you can just type
-the first two letters, otherwise, if they don't, then you can just writ ethe first letter.""")
+""".replace("!", Fore.RED).replace("@", Fore.YELLOW).replace("#", Fore.BLUE).replace("$", Fore.WHITE) +
+      f"""{Fore.BLUE}When prompted for input if multiple options start with the same letter then you can just type
+the first two letters, otherwise, if they don't, then you can just write the first letter.""")
 
 
 def answers_printable(answers: list):
@@ -131,25 +131,25 @@ while run_game:
 
             if turn % 3 == 0:
                 action_three = question(f"What is {player_colors['player three']}'s action? ", possible_actions[gamemode],
-                                        2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                        2 if gamemode == 3 else 1, True, True, win_word)
                 action_two = question(f"What is {player_colors['player two']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
                 action_one = question(f"What is {player_colors['player one']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
             elif turn % 3 == 1:
                 action_two = question(f"What is {player_colors['player two']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
                 action_one = question(f"What is {player_colors['player one']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
                 action_three = question(f"What is {player_colors['player three']}'s action? ",
-                                        possible_actions[gamemode], 2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                        possible_actions[gamemode], 2 if gamemode == 3 else 1, True, True, win_word)
             else:
                 action_one = question(f"What is {player_colors['player one']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
                 action_three = question(f"What is {player_colors['player three']}'s action? ",
-                                        possible_actions[gamemode], 2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                        possible_actions[gamemode], 2 if gamemode == 3 else 1, True, True, win_word)
                 action_two = question(f"What is {player_colors['player two']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                      2 if gamemode == 3 else 1, True, True, win_word)
             turn += 1
 
             if action_one == win_word and action_two != win_word and action_three != win_word:
@@ -208,23 +208,23 @@ while run_game:
 
             if number_of_players == "one":
                 action_one = question(f"What is {player_colors['player one']}'s action? ", possible_actions[gamemode],
-                                      2 if gamemode == 3 or gamemode == 1 else 1, keyword=win_word)
+                                      2 if gamemode == 3 else 1, keyword=win_word)
                 action_two = random.choice(possible_actions[gamemode])
             elif number_of_players == "two":
                 if turn % 2 == 0:
                     action_two = question(f"What is {player_colors['player two']}'s action? ",
                                           possible_actions[gamemode],
-                                          2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                          2 if gamemode == 3 else 1, True, True, win_word)
                     action_one = question(f"What is {player_colors['player one']}'s action? ",
                                           possible_actions[gamemode],
-                                          2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                          2 if gamemode == 3 else 1, True, True, win_word)
                 else:
                     action_one = question(f"What is {player_colors['player one']}'s action? ",
                                           possible_actions[gamemode],
-                                          2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                          2 if gamemode == 3 else 1, True, True, win_word)
                     action_two = question(f"What is {player_colors['player two']}'s action? ",
                                           possible_actions[gamemode],
-                                          2 if gamemode == 3 or gamemode == 1 else 1, True, True, win_word)
+                                          2 if gamemode == 3 else 1, True, True, win_word)
                 turn += 1
 
             if action_one == win_word and action_two != win_word:
