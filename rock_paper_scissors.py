@@ -43,6 +43,34 @@ player_colors = {
     "player two": f"{Fore.RED}player two{Fore.RESET}",
     "player three": f"{Fore.GREEN}player three{Fore.RESET}",
 }
+custom_win_logics = {
+    1: {
+        ("rock", "lizard"): 0,
+        ("rock", "spock"): 1,
+        ("rock", "clippers"): 0,
+        ("rock", "paper"): 1,
+        
+        ("lizard", "rock"): 1,
+        ("lizard", "spock"): 0,
+        ("lizard", "clippers"): 1,
+        ("lizard", "paper"): 0,
+        
+        ("spock", "lizard"): 1,
+        ("spock", "rock"): 0,
+        ("spock", "clippers"): 0,
+        ("spock", "paper"): 1,
+        
+        ("clippers", "lizard"): 0,
+        ("clippers", "spock"): 1,
+        ("clippers", "rock"): 1,
+        ("clippers", "paper"): 0,
+        
+        ("paper", "lizard"): 0,
+        ("paper", "spock"): 1,
+        ("paper", "clippers"): 0,
+        ("paper", "rock"): 1,
+    }
+}
 win_word = "scry"
 os.system("cls")
 
@@ -77,17 +105,21 @@ def decide_winner(player_one: str, player_two: str, game_mode: int, player_three
                 decide_winner(player_three, player_two, game_mode) != 1
         ]
 
-    actions_count = len(possible_actions[game_mode])
-    player_one_idx = possible_actions[game_mode].index(player_one)
-    player_two_idx = possible_actions[game_mode].index(player_two)
-    difference = (player_one_idx - player_two_idx) % actions_count
+    if game_mode in custom_win_logics.keys():
+        return custom_win_logics[game_mode][(player_one, player_two)]
 
-    if difference == 0:
-        return 0
-    elif difference <= actions_count // 2:
-        return 1
     else:
-        return 0
+        actions_count = len(possible_actions[game_mode])
+        player_one_idx = possible_actions[game_mode].index(player_one)
+        player_two_idx = possible_actions[game_mode].index(player_two)
+        difference = (player_one_idx - player_two_idx) % actions_count
+
+        if difference == 0:
+            return 0
+        elif difference <= actions_count // 2:
+            return 1
+        else:
+            return 0
 
 
 def question(text: str, answers: list, shortenable: int = 1, secret: bool = False, remove_space: bool = False,
@@ -166,6 +198,8 @@ while run_game:
                   f"{emojis[action_three]}")
 
             if action_one == action_two == action_three:
+                print(f"{Fore.MAGENTA}THIS ROUND WAS A DRAW")
+            elif [action_one, action_two, action_three].count("scry") > 1:
                 print(f"{Fore.MAGENTA}THIS ROUND WAS A DRAW")
             else:
                 winner = decide_winner(action_one, action_two, gamemode, action_three)
